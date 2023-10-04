@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Assessment Form</title>
+    <link href="static/assets/css/theme.css" rel="stylesheet" />
+</head>
+<body>
+
+ <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-2 d-block bg-transparent" data-navbar-on-scroll="data-navbar-on-scroll" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container">
+            <a class="navbar-brand text-dark" href="/"><img src="static/assets/img/gallery/logooo.png" height="50" alt="CareerMo" />CareerMo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+
+        </div>
+    </nav>
+<section id="home">
+    <div class="bg-holder" style="background-image: url(static/assets/img/gallery/main-bg.jpg); background-position: center; background-size: cover; filter: blur(10px); height: 100vh;"></div>
+
+    <div class="container mt-6">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="bg-light bg-gradient p-6 rounded shadow">
+                    <h1 class="mt-2 mb-5 ms-1 text-soft-danger text-center">Career Assessment</h1>
+                    <p1 class="fs-1">Select "yes" if it describes what you are good at or what interests you, and click "no" if it does not.</p1>
+                    <form action="/assess" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        {% for question in questions %}
+                        <div class="mb-4 mt-3 p-3 border rounded">
+                            <label class="form-label fs-1 fw-bold">{{ question["question_id"] }}. {{ question["question_text"] }}</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="question{{ question["question_id"] }}-yes" name="question_{{ question["question_id"] }}" value="1" required>
+                                <label class="form-check-label" for="question{{ question["question_id"] }}-yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="question{{ question["question_id"] }}-no" name="question_{{ question["question_id"] }}" value="0" required>
+                                <label class="form-check-label" for="question{{ question["question_id"] }}-no">No</label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="static/vendors/@popperjs/popper.min.js"></script>
+<script src="static/vendors/bootstrap/bootstrap.min.js"></script>
+<script src="static/vendors/is/is.min.js"></script>
+<script src="static/https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+<script src="static/vendors/fontawesome/all.min.js"></script>
+<script src="static/assets/js/theme.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Rubik:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Results</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="col-md-6 mx-auto">
+            <div class="bg-light p-4 rounded shadow">
+                <h1 class="mt-2 mb-4 text-danger text-center">Top Recommended Careers</h1>
+                {% if recommended_careers %}
+                    <ul class="list-group">
+                        {% for career, percentage in recommended_careers %}
+                            <li class="list-group-item">{{ career }} </li>
+                        <!-- ==================({{ percentage }}% Match)==========================-->
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No recommendations available at the moment.</p>
+                {% endif %}
+            </div>
+
+
+           <!-- =================  <div class="mt-4">
+                <p><strong>Accuracy Score:</strong> {{ accuracy }}</p>
+                <p><strong>Precision Score:</strong> {{ precision }}</p>
+                <p><strong>Recall Score:</strong> {{ recall }}</p>
+                <p><strong>F1 Score:</strong> {{ f1 }}</p>
+            </div> =======================-->
+            <div class="mt-4 text-center">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+    <!-- Include Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
