@@ -6,10 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assessment Results</title>
     <!-- Include Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/theme.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container mt-5">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-2 d-block bg-light" data-navbar-on-scroll="data-navbar-on-scroll" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container">
+            <a class="navbar-brand text-dark" href="index.html"><img src="static/assets/img/gallery/logooo.png" height="50" alt="CareerMo" />CareerMo</a>
+            <button class="navbar-toggler color-black" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+            <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
+                    <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link fw-medium active text-black" aria-current="page" href="#home">Home</a></li>
+                    <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link text-black" href="#aboutUs">About us</a></li>
+                    <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link text-black" href="#clients">Motivations</a></li>
+                    <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link text-black" href="#">Logout</a></li>
+                    <li class="nav-item px-2" data-anchor="data-anchor">
+                    <form id="search-form" method="POST" action="/search_job" class="navbar-form ml-auto">
+                        <div class="input-group">
+                            <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search jobs..." autocomplete="off">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-dark">Search</button>
+                            </div>
+                        </div>
+                        <!-- Suggestions container to display job title suggestions -->
+                        <div id="suggestions"></div>
+                    </form>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-8">
         <div class="col-md-6 mx-auto">
             <div class="bg-light p-4 rounded shadow">
                 <h1 class="mt-2 mb-4 text-danger text-center">Top Recommended Careers</h1>
