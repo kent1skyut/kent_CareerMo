@@ -11,10 +11,10 @@ import joblib  # Added for model loading
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score, recall_score, f1_score
-import mysql.connector
+#import mysql.connector
 import random
-from wtforms import StringField, PasswordField, validators
-import bcrypt
+#from wtforms import StringField, PasswordField, validators
+#import bcrypt
 
 
 app = Flask(__name__)
