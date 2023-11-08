@@ -12,27 +12,27 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score, recall_score, f1_score
 import mysql.connector
-from flask_mysqldb import MySQL
 import random
 from wtforms import StringField, PasswordField, validators
 import bcrypt
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'  # Set your secret key
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'career_assessment'
+#app.config['MYSQL_HOST'] = 'localhost'
+#app.config['MYSQL_USER'] = 'root'
+#app.config['MYSQL_PASSWORD'] = ''
+#app.config['MYSQL_DB'] = 'career_assessment'
 
-mysql = mysql.connector.connect(
-    host=app.config['MYSQL_HOST'],
-    user=app.config['MYSQL_USER'],
-    password=app.config['MYSQL_PASSWORD'],
-    database=app.config['MYSQL_DB']
-)
+#mysql = mysql.connector.connect(
+    #host=app.config['MYSQL_HOST'],
+    #user=app.config['MYSQL_USER'],
+    #password=app.config['MYSQL_PASSWORD'],
+    #database=app.config['MYSQL_DB']
+#)
 
-cursor = mysql.cursor()
+#cursor = mysql.cursor()
 
 
 csrf = CSRFProtect(app)
@@ -77,13 +77,13 @@ def random_color():
     return color
 
 # Define the UserRegistrationForm
-class UserRegistrationForm(FlaskForm):
+"""class UserRegistrationForm(FlaskForm):
     username = StringField('Username', validators=[validators.InputRequired()])
     email = StringField('Email', validators=[validators.InputRequired(), validators.Email()])
-    password = PasswordField('Password', validators=[validators.InputRequired(), validators.Length(min=8)])
+    password = PasswordField('Password', validators=[validators.InputRequired(), validators.Length(min=8)])"""
 
 # Register route
-@app.route('/register', methods=['GET', 'POST'])
+"""@app.route('/register', methods=['GET', 'POST'])
 @csrf.exempt
 def register():
     form = UserRegistrationForm(request.form)
@@ -130,7 +130,7 @@ def login():
 @csrf.exempt
 def logout():
     session.pop('username', None)
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))"""
 
 
 @app.route('/')
@@ -144,19 +144,20 @@ def search_job():
     if request.method == 'POST':
         search_query = request.form.get('search_query')
 
-        # Perform a database query to retrieve job information based on the search query
-        cursor.execute("SELECT * FROM occupation_data WHERE title LIKE %s OR description LIKE %s", (f'%{search_query}%', f'%{search_query}%'))
-        job_results = cursor.fetchall()
+        # Read data from the CSV file using pandas
+        df = pd.read_csv('occupation_data.csv', encoding='utf-8')
+
+        # Filter rows based on the search query
+        filtered_df = df[(df['title'].str.contains(search_query, case=False)) | (df['description'].str.contains(search_query, case=False))]
 
         # Create a list of dictionaries with job data and row colors
         row_colors = ['job-color-even', 'job-color-odd']
-        job_results_with_colors = [{'data': job, 'color': row_colors[i % 2]} for i, job in enumerate(job_results)]
+        job_results_with_colors = [{'data': job, 'color': row_colors[i % 2]} for i, job in filtered_df.iterrows()]
 
         # Render the template with the search results
         return render_template('job_search_results.html', job_results=job_results_with_colors)
 
     return render_template('index.html')
-
 
 
 @app.route('/decision_tree')
